@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b3g1syfdvqpxo"]
+
+[ext_resource type="Texture2D" uid="uid://8ac60s5ue7un" path="res://assets/dog.png" id="1_eykyc"]
+
+[node name="Dog" type="Sprite2D" unique_id=1139431449]
+scale = Vector2(0.31846815, 0.31846815)
+texture = ExtResource("1_eykyc")

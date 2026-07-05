@@ -3,9 +3,19 @@
 [ext_resource type="Script" uid="uid://cf30vbma71ji3" path="res://game/bird.gd" id="1_4qyu0"]
 [ext_resource type="SpriteFrames" uid="uid://birdframes001" path="res://game/bird_frames.tres" id="2_birdframes"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_860m3"]
+radius = 334.81415
+
 [node name="Bird" type="AnimatedSprite2D" unique_id=1291344546]
-position = Vector2(-13, -44)
-scale = Vector2(0.7168405, 0.7168399)
+position = Vector2(1.000001, -1)
+scale = Vector2(0.20734555, 0.20734538)
 sprite_frames = ExtResource("2_birdframes")
-animation = &"hit"
+animation = &"fall"
 script = ExtResource("1_4qyu0")
+metadata/_edit_group_ = true
+metadata/_edit_vertical_guides_ = [-449.0]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1019355844]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1187827444]
+shape = SubResource("CircleShape2D_860m3")

@@ -5,6 +5,9 @@
 [ext_resource type="SpriteFrames" uid="uid://bqr7uffhoijpy" path="res://game/dog_frames.tres" id="2_dogframes"]
 [ext_resource type="AudioStream" uid="uid://clpbgoccpklnr" path="res://assets/sounds/intro.mp3" id="4_vop5m"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vop5m"]
+size = Vector2(960, 384)
+
 [node name="Main" type="Node2D" unique_id=539643716]
 script = ExtResource("1_xtpaf")
 
@@ -33,3 +36,9 @@ texture = ExtResource("1_oa506")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=460242929]
 stream = ExtResource("4_vop5m")
 volume_db = -26.456
+
+[node name="DangerZone" type="Area2D" parent="." unique_id=93452716 groups=["danger_zone"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerZone" unique_id=411299]
+position = Vector2(475, 683)
+shape = SubResource("RectangleShape2D_vop5m")
