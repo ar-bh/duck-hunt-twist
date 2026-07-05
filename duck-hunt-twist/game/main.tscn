@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bt60fopfe18ra"]
+
+[ext_resource type="Texture2D" uid="uid://2e5400dq15n0" path="res://assets/background.png" id="1_oa506"]
+[ext_resource type="Script" uid="uid://ldmuas50nven" path="res://game/main.gd" id="1_xtpaf"]
+[ext_resource type="SpriteFrames" uid="uid://bqr7uffhoijpy" path="res://game/dog_frames.tres" id="2_dogframes"]
+[ext_resource type="AudioStream" uid="uid://clpbgoccpklnr" path="res://assets/sounds/intro.mp3" id="4_vop5m"]
+
+[node name="Main" type="Node2D" unique_id=539643716]
+script = ExtResource("1_xtpaf")
+
+[node name="Background" type="Node2D" parent="." unique_id=827173300]
+
+[node name="SkyColorRect" type="ColorRect" parent="Background" unique_id=1386555277]
+offset_right = 948.0
+offset_bottom = 634.0
+color = Color(0.46611077, 0.8679308, 0.99999994, 1)
+
+[node name="IntroDog" type="AnimatedSprite2D" parent="Background" unique_id=212878998]
+z_index = 2
+position = Vector2(164, 514)
+scale = Vector2(4.992262, 3.6578968)
+sprite_frames = ExtResource("2_dogframes")
+animation = &"walk"
+autoplay = "walk"
+frame_progress = 0.58949757
+
+[node name="BackgroundTexture" type="TextureRect" parent="Background" unique_id=1231691145]
+z_index = 1
+offset_right = 948.0
+offset_bottom = 633.0
+texture = ExtResource("1_oa506")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=460242929]
+stream = ExtResource("4_vop5m")
+volume_db = -26.456
