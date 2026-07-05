@@ -64,3 +64,5 @@ func _play_dog_animation() -> void:
 	await jump.finished
 	await x_move.finished
 	intro_dog.visible = false
+	
+	game_playing = true

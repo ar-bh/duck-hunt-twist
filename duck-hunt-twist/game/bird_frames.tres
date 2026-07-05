@@ -1,0 +1,23 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://birdframes001"]
+
+[ext_resource type="Texture2D" uid="uid://3uxv4leo35rp" path="res://assets/1.png" id="1_c03ov"]
+[ext_resource type="Texture2D" uid="uid://j2iftpd2jmey" path="res://assets/2.png" id="2_qx480"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c03ov")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qx480")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 5.0
+}]
