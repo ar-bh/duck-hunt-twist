@@ -26,7 +26,10 @@ const DOG_Z_BEHIND_BUSH := 0
 #endregion
 
 const DOG_SCENE := preload("res://game/dog.tscn")
-const TOTAL_DOG_POPUP_TIME: float = 0.3
+const TOTAL_DOG_POPUP_TIME: float = 0.8
+const DOG_POP_HEIGHT: float = 50.0
+const DOG_GRASS_Y: float = 420.0
+const DOG_HIDDEN_BELOW: float = 120.0
 
 
 func _ready() -> void:
@@ -66,30 +69,23 @@ func _play_dog_animation() -> void:
 	intro_dog.play("jump")
 	
 	var jump := create_tween()
-	jump.tween_property(intro_dog, "position:y", start_y - jump_height, 0.25)
-	jump.set_ease(Tween.EASE_OUT)
-	jump.set_trans(Tween.TRANS_QUAD)
-	
+	jump.tween_property(intro_dog, "position:y", start_y - jump_height, 0.25) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+	jump.tween_callback(func(): intro_dog.z_index = DOG_Z_BEHIND_BUSH)
+	jump.tween_callback(func(): intro_dog.play("fall"))
+	jump.tween_property(intro_dog, "position:y", land_y, 0.3) \
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+
 	var x_move := create_tween()
-	x_move.tween_property(intro_dog, "position:x", start_x + 30.0, 0.55)
-	x_move.set_ease(Tween.EASE_IN)
-	x_move.set_trans(Tween.TRANS_QUAD)
-	
+	x_move.tween_property(intro_dog, "position:x", start_x + 30.0, 0.55) \
+		.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+
 	await jump.finished
-	
-	intro_dog.z_index = DOG_Z_BEHIND_BUSH
-	intro_dog.play("fall")
-	
-	var fall := create_tween()
-	fall.tween_property(intro_dog, "position:y", land_y, 0.3)
-	fall.set_ease(Tween.EASE_IN)
-	fall.set_trans(Tween.TRANS_QUAD)
-	
-	await fall.finished
 	await x_move.finished
-	
+
 	intro_dog.visible = false
 	game_playing = true
+	_spawn_timer = _next_spawn
 
 
 func _handle_bird_spawning(delta: float) -> void:
@@ -106,9 +102,37 @@ func _spawn_bird() -> void:
 	var viewport_width := get_viewport().get_visible_rect().size.x
 	var bird := BIRD_SCENE.instantiate()
 	bird.position = Vector2(randf_range(0.0, viewport_width), SPAWN_Y)
+	bird.z_index = 2
 	add_child(bird)
 
 
 func _on_danger_zone_area_entered(area: Area2D) -> void:
-	_popup_dog()
-	
+	if not area.is_in_group("bird"):
+		return
+
+	var entry_point := area.global_position
+	_spawn_popup_dog_at(entry_point)
+
+
+func _spawn_popup_dog_at(global_point: Vector2) -> void:
+	var dog: Sprite2D = DOG_SCENE.instantiate()
+	dog.z_index = DOG_Z_BEHIND_BUSH
+	$Background.add_child(dog)
+	dog.global_position = Vector2(global_point.x, DOG_GRASS_Y + DOG_HIDDEN_BELOW)
+
+	await _popup_dog(dog)
+	dog.queue_free()
+
+
+func _popup_dog(dog: Sprite2D) -> void:
+	var hidden_y := DOG_GRASS_Y + DOG_HIDDEN_BELOW
+	var peak_y := DOG_GRASS_Y - DOG_POP_HEIGHT
+	var half_time := TOTAL_DOG_POPUP_TIME * 0.5
+
+	var popup := create_tween()
+	popup.tween_property(dog, "position:y", peak_y, half_time) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	popup.tween_property(dog, "position:y", hidden_y, half_time) \
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+
+	await popup.finished
