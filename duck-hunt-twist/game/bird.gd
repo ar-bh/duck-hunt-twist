@@ -1,8 +1,12 @@
 extends AnimatedSprite2D
 
+signal clicked
 
 @onready var area_2d: Area2D = $Area2D
 
+@onready var whoosh_player: AudioStreamPlayer = $WhooshPlayer
+const WHOOSH := preload("res://assets/sounds/Whoosh Sounds effects No copyright.mp3")
+const WHOOSH_END := 0.35
 
 
 const GRAVITY := 300.0
@@ -17,6 +21,8 @@ func _ready() -> void:
 	area_2d.area_entered.connect(_on_area_entered)
 	area_2d.input_event.connect(_on_area_input_event)
 	z_index = 2
+	
+	whoosh_player.stream = WHOOSH
 
 
 func _process(delta: float) -> void:
@@ -35,7 +41,17 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		
 		
 func _on_clicked() -> void:
+	clicked.emit()
+	_play_first_whoosh()
+
 	velocity.y -= CLICK_POWER
 	play("hit")
 	await get_tree().create_timer(0.5).timeout
 	play("fall")
+	
+	
+func _play_first_whoosh() -> void:
+	whoosh_player.stop()
+	whoosh_player.play(0.0)
+	#whoosh_player.volume = randf_range(-20.0, -13.0)
+	get_tree().create_timer(WHOOSH_END).timeout.connect(whoosh_player.stop)

@@ -19,13 +19,12 @@ offset_bottom = 634.0
 color = Color(0.46611077, 0.8679308, 0.99999994, 1)
 
 [node name="IntroDog" type="AnimatedSprite2D" parent="Background" unique_id=212878998]
+visible = false
 z_index = 2
-position = Vector2(164, 514)
+position = Vector2(-100, 514)
 scale = Vector2(4.992262, 3.6578968)
 sprite_frames = ExtResource("2_dogframes")
 animation = &"walk"
-autoplay = "walk"
-frame_progress = 0.58949757
 
 [node name="BackgroundTexture" type="TextureRect" parent="Background" unique_id=1231691145]
 z_index = 1
@@ -43,3 +42,81 @@ scale = Vector2(1.0176525, 1.0884163)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DangerZone" unique_id=411299]
 position = Vector2(461.84723, 633.9486)
 shape = SubResource("RectangleShape2D_vop5m")
+
+[node name="Menu" type="CanvasLayer" parent="." unique_id=209530352]
+
+[node name="MenuRoot" type="VBoxContainer" parent="Menu" unique_id=1874277296]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -120.0
+offset_right = 160.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="LogoLabel" type="RichTextLabel" parent="Menu/MenuRoot" unique_id=1936555946]
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font_size=48]DUCK HUNT[/font_size][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="StartButton" type="Button" parent="Menu/MenuRoot" unique_id=1691411322]
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="Menu/MenuRoot" unique_id=341997994]
+custom_minimum_size = Vector2(200, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"
+
+[node name="GameplayUI" type="CanvasLayer" parent="." unique_id=179355535]
+
+[node name="ScoreLabel" type="RichTextLabel" parent="GameplayUI" unique_id=1600787809]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -24.0
+offset_right = 80.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center]0[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HighScoreLabel" type="RichTextLabel" parent="GameplayUI" unique_id=93800285]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 56.0
+grow_horizontal = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[right]High: 0[/right]"
+fit_content = true
+scroll_active = false

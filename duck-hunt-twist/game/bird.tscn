@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cf30vbma71ji3" path="res://game/bird.gd" id="1_4qyu0"]
 [ext_resource type="SpriteFrames" uid="uid://birdframes001" path="res://game/bird_frames.tres" id="2_birdframes"]
+[ext_resource type="AudioStream" uid="uid://dxp6m8obfala2" path="res://assets/sounds/Whoosh Sounds effects No copyright.mp3" id="3_hmlhg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_860m3"]
 radius = 405.12082
@@ -19,3 +20,7 @@ metadata/_edit_vertical_guides_ = [-449.0]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1187827444]
 shape = SubResource("CircleShape2D_860m3")
+
+[node name="WhooshPlayer" type="AudioStreamPlayer" parent="." unique_id=1590481789]
+stream = ExtResource("3_hmlhg")
+volume_db = -13.535
